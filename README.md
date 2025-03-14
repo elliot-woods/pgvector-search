@@ -15,8 +15,45 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
    ```
    make test-api SEARCH="your search query" LIMIT=5
    ```
-   - Example: `make test-api SEARCH="a green tree" LIMIT=2`
-   - Example: `make test-api SEARCH="sports car" LIMIT=2`
+   - Example: 
+      ```
+      -> make test-api SEARCH="a green tree" LIMIT=4
+      Testing /search-by-text with 'a green tree' query and limit 4...
+      [
+         {
+            "path": "data/test_images/download-8.jpg",
+            "distance": 0.7141705992776717
+         },
+         {
+            "path": "data/test_images/download-11.jpg",
+            "distance": 0.7194434540630541
+         },
+         {
+            "path": "data/test_images/download-10.jpg",
+            "distance": 0.7258576176052569
+         },
+         {
+            "path": "data/test_images/download-9.jpg",
+            "distance": 0.733280044322933
+         }
+      ]
+      ```
+   - Example: 
+      ```
+      -> make test-api SEARCH="sports car" LIMIT=2
+      Testing /search-by-text with 'sports car' query and limit 2...
+      [
+         {
+            "path": "data/test_images/download-12.jpg",
+            "distance": 0.7219719462600145
+         },
+         {
+            "path": "data/test_images/download-14.jpg",
+            "distance": 0.7226935017421838
+         }
+      ]
+      ```
+
 
 
 ## Setup with **R2 images**
@@ -47,29 +84,29 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
    ```
    - Example: 
       ```
-      $make test-api LIMIT=5 SEARCH="a person with pink hair" 
+      $ make test-api LIMIT=5 SEARCH="a person with pink hair" 
       Testing /search-by-text with 'a person with pink hair' query and limit 5...
       [
-      {
-         "path": "data/images/rCN3WEHZ8Obdt.jpeg",
-         "distance": 0.7135157371878005
-      },
-      {
-         "path": "data/images/0S6IjibNm3pFg.png",
-         "distance": 0.7614015521782136
-      },
-      {
-         "path": "data/images/7w0IxLMNKpAZX.png",
-         "distance": 0.7614776395247627
-      },
-      {
-         "path": "data/images/228CtojAiLoNI.jpeg",
-         "distance": 0.7670808304838583
-      },
-      {
-         "path": "data/images/0_-NKJjR6QfSE.png",
-         "distance": 0.768500314713227
-      }
+         {
+            "path": "data/images/rCN3WEHZ8Obdt.jpeg",
+            "distance": 0.7135157371878005
+         },
+         {
+            "path": "data/images/0S6IjibNm3pFg.png",
+            "distance": 0.7614015521782136
+         },
+         {
+            "path": "data/images/7w0IxLMNKpAZX.png",
+            "distance": 0.7614776395247627
+         },
+         {
+            "path": "data/images/228CtojAiLoNI.jpeg",
+            "distance": 0.7670808304838583
+         },
+         {
+            "path": "data/images/0_-NKJjR6QfSE.png",
+            "distance": 0.768500314713227
+         }
       ]
       ```
 
