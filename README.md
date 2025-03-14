@@ -84,6 +84,7 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
    ```
    - Example: 
       `make test-api LIMIT=5 SEARCH="a person with pink hair"`
+      
       Result:
       ```
       Testing /search-by-text with 'a person with pink hair' query and limit 5...
