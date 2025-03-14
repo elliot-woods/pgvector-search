@@ -2,8 +2,8 @@
 
 Retrieve relevant images given a search query (i.e. "a green tree") from a postgres table
 
-### Setup with **test images**
-- Images will be installed to disk inside TEST_IMAGES_DIR
+## Setup with **test images**
+- Test images are already installed and located in `TEST_IMAGES_DIR`
 
 1. Clone the repository
 2. Create a `.env` file (you can copy contents of the `.env.example` for testing)
@@ -19,8 +19,8 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
    - Example: `make test-api SEARCH="sports car" LIMIT=2`
 
 
-### Setup with **R2 images**
-- Images will be installed to disk inside IMAGES_DIR
+## Setup with **R2 images**
+- Images will be installed to disk inside `IMAGES_DIR`
 
 - **IMPORTANT** In order to download images from an R2 bucket you need to have the following env vars in your `.env` file:
    ```
@@ -49,7 +49,7 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
    - Example: `make test-api SEARCH="a blue sky" LIMIT=2`
 
 
-### API Endpoints
+## API Endpoints
 
 The FastAPI application exposes the following endpoints:
 
