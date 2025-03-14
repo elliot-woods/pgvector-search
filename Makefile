@@ -37,15 +37,6 @@ clean:
 start: clean build up setup logs
 	@echo "Application started successfully in detached mode. Use 'make logs' to view logs."
 
-test-local-search-by-text:
-	@echo "Testing /search-by-text with 'a boat' query and limit 2..."
-	@curl -s -X GET "http://localhost:8000/search-by-text?query=a+boat&limit=5"
-	@echo "Testing /search-by-text with 'a car' query and limit 5..."
-	@curl -s -X GET "http://localhost:8000/search-by-text?query=a+car&limit=5"
-	@echo "Testing /search-by-text with 'a green tree' query and limit 3..."
-	@curl -s -X GET "http://localhost:8000/search-by-text?query=a+green+tree&limit=3"
-	@echo "\nTest completed."
-
 test-api:
 	@echo "Testing /search-by-text with '$(SEARCH)' query and limit $(LIMIT)..."
 	@curl -s -X GET "http://localhost:8000/search-by-text?query=$(subst $(space),+,$(SEARCH))&limit=$(LIMIT)" | jq

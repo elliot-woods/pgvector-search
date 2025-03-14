@@ -2,50 +2,57 @@
 
 Retrieve relevant images given a search query (i.e. "a green tree") from a postgres table
 
-## Setup
+## Setup with **test images** (located in data/test_images)
 
 1. Clone the repository
-2. Create a `.env` file with the following variables:
+2. Create a `.env` file (you can copy contents of the `.env.example` for testing)
+3. Create the DB and start API with:
    ```
-   # Database configuration
-   DB_HOST=db
-   DB_PORT=5432
-   DB_NAME=image_embeddings
-   DB_USER=postgres
-   DB_PASSWORD=postgres
-
-   # Directories 
-   TEST_IMAGES_DIR=data/test_images
-   IMAGES_DIR=data/images
-   MODELS_DIR=models
-   EMBEDDINGS_DIR=embeddings
-
-   # Model configuration
-   MODEL_NAME=openai/clip-vit-base-patch32
-
-   # API configuration
-   API_PORT=8000
+   TESTING=1 make start
    ```
-3. Create DB and start API with:
+4. Test the API with:
+   ```
+   make test-api SEARCH="your search query" LIMIT=5
+   ```
+   - Example: make test-api SEARCH="a green tree" LIMIT=2
+   - Example: make test-api SEARCH="sports car" LIMIT=2
+
+
+## Setup with **R2 images** (will be located in data/images)
+**IMPORTANT** In order to download images from an R2 bucket you need to have the following env vars in your `.env` file:
+   ```
+   R2_ENDPOINT_URL=???
+   R2_ACCESS_KEY_ID=???
+   R2_SECRET_ACCESS_KEY=???
+   R2_BUCKET_NAME=???
+   MAX_IMAGES=100
+   ```
+
+1. Clone the repository
+2. Create a `.env` file (you can copy contents of the `.env.example` for testing)
+3. Download R2 images with (you can modify how many images to download with the `MAX_IMAGES` env var located in your `.env` file):
+   ```
+   make download-images
+   ```
+3. Create the DB and start API with:
    ```
    make start
    ```
-4. Test the API with one of the following commands:
+4. Test the API with:
    ```
-   # Run predefined test queries
-   make test-local-search-by-text
-   
-   # Run a custom search query
    make test-api SEARCH="your search query" LIMIT=5
    ```
+   - Example: make test-api SEARCH="a green tree" LIMIT=2
+   - Example: make test-api SEARCH="sports car" LIMIT=2
+
 
 ### API Endpoints
 
 The FastAPI application exposes the following endpoints:
 
 - `GET /search-by-text?query=<text>&limit=<int>`: Search for similar images using a text query
-- `POST /upload`: Upload an image and store its embedding in the database
-- `POST /search-by-image?limit=<int>`: Search for similar images using an uploaded image
+- [WIP] `POST /upload`: Upload an image and store its embedding in the database
+- [WIP] `POST /search-by-image?limit=<int>`: Search for similar images using an uploaded image
 
 
 ## How It Works
