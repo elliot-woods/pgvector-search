@@ -7,23 +7,32 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
 1. Clone the repository
 2. Create a `.env` file with the following variables:
    ```
+   # Database configuration
    DB_HOST=db
    DB_PORT=5432
-   DB_NAME=imagedb
+   DB_NAME=image_embeddings
    DB_USER=postgres
    DB_PASSWORD=postgres
-   IMAGES_DIR=data/test_images
+
+   # Directories 
+   TEST_IMAGES_DIR=data/test_images
+   IMAGES_DIR=data/images
    MODELS_DIR=models
    EMBEDDINGS_DIR=embeddings
+
+   # Model configuration
    MODEL_NAME=openai/clip-vit-base-patch32
+
+   # API configuration
+   API_PORT=8000
    ```
-3. Setup with:
+3. Create DB and start API with:
    ```
    make start
    ```
 4. Test with:
    ```
-   make test-search-text
+   make test-search-by-text
    ```
 
 ### API Endpoints

@@ -4,17 +4,13 @@ from PIL import Image
 from dotenv import load_dotenv
 from pathlib import Path
 import numpy as np
-from app.model_loader import download_or_load_clip_model
+from load_embedding_model import download_or_load_clip_model
 
 load_dotenv()
 
 def create_embeddings():
     # Initialize CLIP model and processor
     print("Initializing CLIP model and processor...")
-    # # Check if CUDA is available
-    # device = "cuda" if torch.cuda.is_available() else "cpu"
-    # print(f"Using device: {device}")
-
  
     # Load model and processor using the shared loader
     model, processor = download_or_load_clip_model()
@@ -26,8 +22,16 @@ def create_embeddings():
     
     # Get images from the specified directory
     print("Getting images from directory...")
-    images_dir = os.getenv("IMAGES_DIR")
+    if os.getenv("TESTING") == "1":
+        images_dir = os.getenv("TEST_IMAGES_DIR")
+    else:
+        images_dir = os.getenv("IMAGES_DIR")
     image_files = [p for p in Path(images_dir).glob("*") if p.suffix.lower() in ['.jpg', '.jpeg', '.png']]
+    
+    # Check if there are no images and return early if so
+    if not image_files:
+        print(f"No images found in directory: {images_dir}")
+        return
     
     # Create a single CSV file for all embeddings
     embeddings_file = Path(embeddings_dir) / "image_embeddings.csv"
@@ -74,6 +78,8 @@ def create_embeddings():
                 print(f"Saved embedding for: {image_path}")
             except Exception as e:
                 print(f"Error processing {image_path}: {e}")
+    
+    print(f"Created {len(image_files)} embeddings successfully!")
 
 if __name__ == "__main__":
     create_embeddings() 

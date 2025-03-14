@@ -1,7 +1,7 @@
 from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from app.image_search import ImageSearch
+from api.search_embeddings import EmbeddingSearch
 
 load_dotenv()
 
@@ -15,8 +15,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize ImageSearch
-image_search = ImageSearch()
+# Initialize EmbeddingSearch
+search_embeddings = EmbeddingSearch()
 
 @app.get("/search-by-text")
 async def search_similar_images(query: str, limit: int = 5):
@@ -30,7 +30,7 @@ async def search_similar_images(query: str, limit: int = 5):
     Returns:
         A list of dictionaries containing the image path and similarity score.
     """
-    return image_search.search_by_text(query, limit)
+    return search_embeddings.search_by_text(query, limit)
 
 @app.post("/upload")
 async def upload_image(file: UploadFile):
@@ -45,7 +45,7 @@ async def upload_image(file: UploadFile):
     """
     # Read and process the image
     contents = await file.read()
-    success = image_search.add_image_bytes(contents, file.filename)
+    success = search_embeddings.add_image_bytes(contents, file.filename)
     
     if success:
         return {"message": "Image uploaded successfully", "filename": file.filename}
@@ -66,6 +66,6 @@ async def search_by_image(file: UploadFile, limit: int = 5):
     """
     # Read and process the image
     contents = await file.read()
-    results = image_search.search_by_image_bytes(contents, limit)
+    results = search_embeddings.search_by_image_bytes(contents, limit)
     
     return results 

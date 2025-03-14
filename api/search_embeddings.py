@@ -7,9 +7,9 @@ from typing import List, Dict, Union, Optional, Tuple
 from pathlib import Path
 import torch
 from dotenv import load_dotenv
-from app.model_loader import download_or_load_clip_model
+from api.load_embedding_model import download_or_load_clip_model
 
-class ImageSearch:
+class EmbeddingSearch:
     """
     A class for searching similar images based on text queries or image inputs.
     Uses CLIP model for generating embeddings and pgvector for similarity search.
@@ -17,7 +17,7 @@ class ImageSearch:
     
     def __init__(self):
         """
-        Initialize the ImageSearch class.
+        Initialize the EmbeddingSearch class.
         
         Args:
             model_name: The name of the CLIP model to use for generating embeddings.
@@ -28,10 +28,13 @@ class ImageSearch:
         # Load CLIP model and processor using the shared loader
         self.model, self.processor = download_or_load_clip_model()
         
+        # Store database name for use in queries
+        self.db_name = os.getenv("DB_NAME")
+        
         # Database connection parameters
         self.db_params = {
             "host": os.getenv("DB_HOST"),
-            "database": os.getenv("DB_NAME"),
+            "database": self.db_name,
             "user": os.getenv("DB_USER"),
             "password": os.getenv("DB_PASSWORD"),
             "port": os.getenv("DB_PORT")
@@ -142,9 +145,9 @@ class ImageSearch:
         cur = conn.cursor()
         
         # Search for similar images using cosine similarity
-        cur.execute("""
+        cur.execute(f"""
             SELECT path, embedding <=> %s::vector AS distance
-            FROM images
+            FROM {self.db_name}
             ORDER BY distance
             LIMIT %s
         """, (embedding.tolist(), limit))
@@ -174,7 +177,7 @@ class ImageSearch:
             
             # Store the image path and its embedding
             cur.execute(
-                "INSERT INTO images (path, embedding) VALUES (%s, %s::vector) ON CONFLICT (path) DO UPDATE SET embedding = EXCLUDED.embedding",
+                f"INSERT INTO {self.db_name} (path, embedding) VALUES (%s, %s::vector) ON CONFLICT (path) DO UPDATE SET embedding = EXCLUDED.embedding",
                 (path, embedding.tolist())
             )
             

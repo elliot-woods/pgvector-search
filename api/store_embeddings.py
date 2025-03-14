@@ -21,6 +21,7 @@ def store_embeddings():
     print("Connecting to database...")
     conn = get_db_connection()
     cur = conn.cursor()
+    db_name = os.getenv("DB_NAME")
     
     # Get embeddings from the single CSV file
     print("Reading embeddings from disk...")
@@ -31,9 +32,6 @@ def store_embeddings():
         print(f"Error: Embeddings file not found: {embeddings_file}")
         return
     
-    # Get list of images already in the database to avoid duplicates
-    cur.execute("SELECT path FROM images")
-    existing_images = {row[0] for row in cur.fetchall()}
     
     # Read the embeddings from the CSV file
     print(f"Reading embeddings from: {embeddings_file}")
@@ -42,18 +40,12 @@ def store_embeddings():
     try:
         with open(embeddings_file, 'r', newline='') as f:
             reader = csv.reader(f)
-            header = next(reader)  # Skip header row
             
             for row in reader:
                 if not row:  # Skip empty rows
                     continue
                     
                 image_path = row[0]
-                
-                # Skip if already in database
-                if image_path in existing_images:
-                    print(f"Image already in database: {image_path}")
-                    continue
                 
                 # Convert string representation of list to actual list
                 embedding_str = row[1]
@@ -64,7 +56,7 @@ def store_embeddings():
                     # Store in database
                     print(f"Storing in database: {image_path}")
                     cur.execute(
-                        "INSERT INTO images (path, embedding) VALUES (%s, %s) ON CONFLICT (path) DO NOTHING",
+                        f"INSERT INTO {db_name} (path, embedding) VALUES (%s, %s) ON CONFLICT (path) DO UPDATE SET embedding = EXCLUDED.embedding",
                         (image_path, embedding_values)
                     )
                     count += 1

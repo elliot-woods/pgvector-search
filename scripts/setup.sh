@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Main setup script that runs both database setup and embedding creation
 
@@ -10,9 +11,9 @@ chmod +x /app/scripts/setup_db.sh
 # Step 2: Create and store embeddings
 echo "Step 2: Running embeddings setup..."
 chmod +x /app/scripts/setup_embeddings.sh
-/app/scripts/setup_embeddings.sh || echo "Warning: Embeddings setup failed, but API will continue running."
+/app/scripts/setup_embeddings.sh
 
-# Refresh the vector index after embeddings have been loaded
+# Step 3: Create embedding index after embeddings have been loaded
 echo "Step 3: Creating embedding index in database..."
 chmod +x /app/scripts/setup_embedding_index.sh
 /app/scripts/setup_embedding_index.sh
