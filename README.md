@@ -30,9 +30,13 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
    ```
    make start
    ```
-4. Test with:
+4. Test the API with one of the following commands:
    ```
-   make test-search-by-text
+   # Run predefined test queries
+   make test-local-search-by-text
+   
+   # Run a custom search query
+   make test-api SEARCH="your search query" LIMIT=5
    ```
 
 ### API Endpoints
