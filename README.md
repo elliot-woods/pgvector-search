@@ -3,7 +3,7 @@
 Retrieve relevant images given a search query (i.e. "a green tree") from a postgres table
 
 ### Setup with **test images**
-Images will be installed to disk inside TEST_IMAGES_DIR
+- Images will be installed to disk inside TEST_IMAGES_DIR
 
 1. Clone the repository
 2. Create a `.env` file (you can copy contents of the `.env.example` for testing)
@@ -15,14 +15,14 @@ Images will be installed to disk inside TEST_IMAGES_DIR
    ```
    make test-api SEARCH="your search query" LIMIT=5
    ```
-   - Example: make test-api SEARCH="a green tree" LIMIT=2
-   - Example: make test-api SEARCH="sports car" LIMIT=2
+   - Example: `make test-api SEARCH="a green tree" LIMIT=2`
+   - Example: `make test-api SEARCH="sports car" LIMIT=2`
 
 
 ### Setup with **R2 images**
-Images will be installed to disk inside IMAGES_DIR
+- Images will be installed to disk inside IMAGES_DIR
 
-**IMPORTANT** In order to download images from an R2 bucket you need to have the following env vars in your `.env` file:
+- **IMPORTANT** In order to download images from an R2 bucket you need to have the following env vars in your `.env` file:
    ```
    R2_ENDPOINT_URL=???
    R2_ACCESS_KEY_ID=???
@@ -45,8 +45,8 @@ Images will be installed to disk inside IMAGES_DIR
    ```
    make test-api SEARCH="your search query" LIMIT=5
    ```
-   - Example: make test-api SEARCH="a green tree" LIMIT=2
-   - Example: make test-api SEARCH="sports car" LIMIT=2
+   - Example: `make test-api SEARCH="a person with pink hair" LIMIT=2`
+   - Example: `make test-api SEARCH="a blue sky" LIMIT=2`
 
 
 ### API Endpoints
