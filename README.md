@@ -2,7 +2,25 @@
 
 Retrieve relevant images given a search query (i.e. "a green tree") from a postgres table
 
-## Setup with **test images**
+## API Endpoints
+
+The FastAPI application exposes the following endpoints:
+
+- `GET /search-by-text?query=<text>&limit=<int>`: Search for similar images using a text query
+- [WIP] `POST /upload`: Upload an image and store its embedding in the database
+- [WIP] `POST /search-by-image?limit=<int>`: Search for similar images using an uploaded image
+
+
+## How It Works
+
+1. Images are processed using the CLIP model to generate embeddings
+2. Embeddings are stored in a PostgreSQL database with pgvector extension
+3. When searching, the query (text or image) is converted to an embedding
+4. The database performs a similarity search using cosine similarity
+5. The most similar images are returned, along with their similarity scores
+
+
+## Use with **test images**
 - Test images are already installed and located in `TEST_IMAGES_DIR`
 
 1. Clone the repository
@@ -60,7 +78,7 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
 
 
 
-## Setup with **R2 images**
+## Use with **R2 images**
 - Images will be installed to disk inside `IMAGES_DIR`
 
 - **IMPORTANT** In order to download images from an R2 bucket you need to have the following env vars in your `.env` file:
@@ -115,21 +133,3 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
          }
       ]
       ```
-
-
-## API Endpoints
-
-The FastAPI application exposes the following endpoints:
-
-- `GET /search-by-text?query=<text>&limit=<int>`: Search for similar images using a text query
-- [WIP] `POST /upload`: Upload an image and store its embedding in the database
-- [WIP] `POST /search-by-image?limit=<int>`: Search for similar images using an uploaded image
-
-
-## How It Works
-
-1. Images are processed using the CLIP model to generate embeddings
-2. Embeddings are stored in a PostgreSQL database with pgvector extension
-3. When searching, the query (text or image) is converted to an embedding
-4. The database performs a similarity search using cosine similarity
-5. The most similar images are returned, along with their similarity scores
