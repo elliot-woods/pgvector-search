@@ -1,0 +1,21 @@
+# Python
+.env
+.venv
+venv/
+ENV/
+
+# Cursor
+.cursor
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Logs
+logs
+*.log
+
+# Environment variables
+.env
