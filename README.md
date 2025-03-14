@@ -45,8 +45,33 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
    ```
    make test-api SEARCH="your search query" LIMIT=5
    ```
-   - Example: `make test-api SEARCH="a person with pink hair" LIMIT=2`
-   - Example: `make test-api SEARCH="a blue sky" LIMIT=2`
+   - Example: 
+      ```
+      $make test-api LIMIT=5 SEARCH="a person with pink hair" 
+      Testing /search-by-text with 'a person with pink hair' query and limit 5...
+      [
+      {
+         "path": "data/images/rCN3WEHZ8Obdt.jpeg",
+         "distance": 0.7135157371878005
+      },
+      {
+         "path": "data/images/0S6IjibNm3pFg.png",
+         "distance": 0.7614015521782136
+      },
+      {
+         "path": "data/images/7w0IxLMNKpAZX.png",
+         "distance": 0.7614776395247627
+      },
+      {
+         "path": "data/images/228CtojAiLoNI.jpeg",
+         "distance": 0.7670808304838583
+      },
+      {
+         "path": "data/images/0_-NKJjR6QfSE.png",
+         "distance": 0.768500314713227
+      }
+      ]
+      ```
 
 
 ## API Endpoints
