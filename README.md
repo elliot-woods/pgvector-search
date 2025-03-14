@@ -17,6 +17,8 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
    ```
    - Example: 
       `make test-api SEARCH="a green tree" LIMIT=4`
+            
+      Result:
       ```
       Testing /search-by-text with 'a green tree' query and limit 4...
       [
@@ -40,6 +42,8 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
       ```
    - Example: 
       `make test-api SEARCH="sports car" LIMIT=2`
+            
+      Result:
       ```
       Testing /search-by-text with 'sports car' query and limit 2...
       [
