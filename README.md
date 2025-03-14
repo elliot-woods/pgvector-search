@@ -16,8 +16,8 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
    make test-api SEARCH="your search query" LIMIT=5
    ```
    - Example: 
+      `make test-api SEARCH="a green tree" LIMIT=4`
       ```
-      -> make test-api SEARCH="a green tree" LIMIT=4
       Testing /search-by-text with 'a green tree' query and limit 4...
       [
          {
@@ -39,8 +39,8 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
       ]
       ```
    - Example: 
+      `make test-api SEARCH="sports car" LIMIT=2`
       ```
-      -> make test-api SEARCH="sports car" LIMIT=2
       Testing /search-by-text with 'sports car' query and limit 2...
       [
          {
@@ -83,8 +83,8 @@ Retrieve relevant images given a search query (i.e. "a green tree") from a postg
    make test-api SEARCH="your search query" LIMIT=5
    ```
    - Example: 
+      `make test-api LIMIT=5 SEARCH="a person with pink hair"`
       ```
-      $ make test-api LIMIT=5 SEARCH="a person with pink hair" 
       Testing /search-by-text with 'a person with pink hair' query and limit 5...
       [
          {
