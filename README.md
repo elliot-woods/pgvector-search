@@ -1,4 +1,4 @@
-# PGVector Image Search
+# pg_vector Image Search
 
 Retrieve relevant images given a search query (i.e. "a green tree") from a postgres table
 
